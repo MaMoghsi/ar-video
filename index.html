@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,30 +35,49 @@
         color-space="sRGB"
         vr-mode-ui="enabled: false"
         device-orientation-permission-ui="enabled: false">
-
-    <a-assets>
-
-    </a-assets>
-
     <a-camera
             position="0 0 0"
             look-controls="enabled: false">
     </a-camera>
+    <a-assets>
+        <video
+                id="myVideo"
+                src="assets/videos/intro.mp4"
+                autoplay
+                loop
+                muted
+                playsinline>
+        </video>
+    </a-assets>
 
     <a-entity mindar-image-target="targetIndex: 0">
 
-        <a-box
-                position="0 0 0"
-                depth="0.2"
-                height="0.5"
-                width="0.5"
-                color="red">
-        </a-box>
+        <a-video
+                src="#myVideo"
+                width="1"
+                height="0.56"
+                position="0 0 0">
+        </a-video>
 
     </a-entity>
 
 </a-scene>
 
-</body>
 
+</body>
+<script>
+    const video = document.querySelector("#myVideo");
+
+    const target = document.querySelector(
+        "[mindar-image-target]"
+    );
+
+    target.addEventListener("targetFound", () => {
+        video.play();
+    });
+
+    target.addEventListener("targetLost", () => {
+        video.pause();
+    });
+</script>
 </html>
