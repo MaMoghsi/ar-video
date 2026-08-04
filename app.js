@@ -1,14 +1,50 @@
-const video = document.querySelector("#myVideo");
+const scene = document.querySelector("a-scene");
+const assets = document.querySelector("#assets");
 
-const target = document.querySelector(
-    "[mindar-image-target]"
+TARGETS.forEach((item) => {
+
+    // ساخت ویدیو
+    const video = document.createElement("video");
+
+    video.id = "video" + item.id;
+    video.src = item.video;
+    video.loop = true;
+    video.playsInline = true;
+    video.preload = "auto";
+
+    assets.appendChild(video);
+
+    // ساخت Target
+    const entity = document.createElement("a-entity");
+
+    entity.setAttribute(
+        "mindar-image-target",
+        targetIndex: ${item.id}
 );
 
-target.addEventListener("targetFound", () => {
-    video.play();
-});
+    // ساخت ویدیو
+    const plane = document.createElement("a-video");
 
-target.addEventListener("targetLost", () => {
-    video.pause();
-    video.currentTime = 0;
+    plane.setAttribute("src", "#" + video.id);
+    plane.setAttribute("width", item.width);
+    plane.setAttribute("height", item.height);
+    plane.setAttribute("position", "0 0 0");
+
+    entity.appendChild(plane);
+
+    scene.appendChild(entity);
+
+    entity.addEventListener("targetFound", () => {
+
+        video.play();
+
+    });
+
+    entity.addEventListener("targetLost", () => {
+
+        video.pause();
+        video.currentTime = 0;
+
+    });
+
 });
