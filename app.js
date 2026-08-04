@@ -21,7 +21,7 @@ TARGETS.forEach((item) => {
 
     entity.setAttribute(
         "mindar-image-target",
-        targetIndex: ${item.id}
+        `targetIndex: ${item.id}`
 );
 
     // ساخت Video Plane
