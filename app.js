@@ -9,8 +9,10 @@ TARGETS.forEach((item) => {
     video.id = "video" + item.id;
     video.src = item.video;
     video.loop = true;
-    video.playsInline = true;
     video.preload = "auto";
+
+    video.setAttribute("playsinline", "");
+    video.setAttribute("webkit-playsinline", "");
 
     assets.appendChild(video);
 
@@ -22,7 +24,7 @@ TARGETS.forEach((item) => {
         targetIndex: ${item.id}
 );
 
-    // ساخت ویدیو
+    // ساخت Video Plane
     const plane = document.createElement("a-video");
 
     plane.setAttribute("src", "#" + video.id);
@@ -35,16 +37,12 @@ TARGETS.forEach((item) => {
     scene.appendChild(entity);
 
     entity.addEventListener("targetFound", () => {
-
         video.play();
-
     });
 
     entity.addEventListener("targetLost", () => {
-
         video.pause();
         video.currentTime = 0;
-
     });
 
 });
