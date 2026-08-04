@@ -10,22 +10,8 @@
 
     <script src="js/aframe.min.js"></script>
     <script src="js/mindar-image-aframe.prod.js"></script>
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden;
-        }
 
-        a-scene {
-            position: fixed;
-            inset: 0;
-            width: 100vw !important;
-            height: 100vh !important;
-        }
-    </style>
+    <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
@@ -43,9 +29,8 @@
         <video
                 id="myVideo"
                 src="assets/videos/intro.mp4"
-                autoplay
+                preload="auto"
                 loop
-                muted
                 playsinline>
         </video>
     </a-assets>
@@ -63,20 +48,6 @@
 
 </a-scene>
 
-<script>
-    const video = document.querySelector("#myVideo");
-
-    const target = document.querySelector(
-        "[mindar-image-target]"
-    );
-
-    target.addEventListener("targetFound", () => {
-        video.play();
-    });
-
-    target.addEventListener("targetLost", () => {
-        video.pause();
-    });
-</script>
+<script src="./app.js"></script>
 </body>
 </html>
