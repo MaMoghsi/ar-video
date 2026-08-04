@@ -41,8 +41,13 @@ TARGETS.forEach((item) => {
     });
 
     entity.addEventListener("targetLost", () => {
+
         video.pause();
-        video.currentTime = 0;
+
+        if (item.restart) {
+            video.currentTime = 0;
+        }
+
     });
 
 });
