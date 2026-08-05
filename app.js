@@ -21,16 +21,30 @@ TARGETS.forEach((item) => {
 
     entity.setAttribute(
         "mindar-image-target",
-        `targetIndex: ${item.id}`
+        "targetIndex" + item.id
 );
 
     // ساخت Video Plane
     const plane = document.createElement("a-video");
 
     plane.setAttribute("src", "#" + video.id);
-    plane.setAttribute("width", item.width);
-    plane.setAttribute("height", item.height);
-    plane.setAttribute("position", "0 0 0");
+
+
+    plane.setAttribute("position", item.position);
+    plane.setAttribute("rotation", item.rotation);
+    plane.setAttribute("opacity", item.opacity);
+    plane.setAttribute("transparent", item.transparent);
+    if (item.fitTarget) {
+
+        plane.setAttribute("width", item.width);
+        plane.setAttribute("height", item.height);
+
+    } else {
+
+        plane.setAttribute("width", item.width);
+        plane.setAttribute("height", item.height);
+
+    }
 
     entity.appendChild(plane);
 
