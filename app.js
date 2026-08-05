@@ -8,16 +8,16 @@ window.addEventListener("load", init);
 function init() {
 
     TARGETS.forEach(function (item) {
-
         createTarget(item);
-
     });
 
 }
 
 function createTarget(item) {
 
-    const video = createVideo(item);
+    if (item.type === "video") {
+        createVideoAsset(item);
+    }
 
     const entity = document.createElement("a-entity");
 
@@ -26,42 +26,45 @@ function createTarget(item) {
         "targetIndex: " + item.id
     );
 
-    let plane;
+    const object = createObject(item);
 
-    if(item.type==="video"){
-
-        plane=document.createElement("a-video");
-
-        plane.setAttribute("src","#"+video.id);
-
+    if (!object) {
+        return;
     }
 
-    else if(item.type==="image"){
-
-        plane=createImage(item);
-
-    }
-
-    plane.setAttribute("src", "#" + video.id);
-
-    plane.setAttribute("position", item.position);
-    plane.setAttribute("rotation", item.rotation);
-
-    plane.setAttribute("opacity", item.opacity);
-    plane.setAttribute("transparent", item.transparent);
-
-    plane.setAttribute("width", item.width);
-    plane.setAttribute("height", item.height);
-
-    entity.appendChild(plane);
+    entity.appendChild(object);
 
     scene.appendChild(entity);
 
-    bindEvents(entity, video, item);
+    if (item.type === "video") {
+
+        const video = document.getElementById("video" + item.id);
+
+        bindEvents(entity, video, item);
+
+    }
 
 }
 
-function createVideo(item) {
+function createObject(item) {
+
+    switch (item.type) {
+
+        case "video":
+            return createVideoPlane(item);
+
+        case "image":
+            return createImage(item);
+
+        default:
+            console.error("Unknown Type : " + item.type);
+            return null;
+
+    }
+
+}
+
+function createVideoAsset(item) {
 
     const video = document.createElement("video");
 
@@ -74,15 +77,37 @@ function createVideo(item) {
     video.preload = "auto";
 
     video.setAttribute("playsinline", "");
-
     video.setAttribute("webkit-playsinline", "");
 
     assets.appendChild(video);
 
-    return video;
+}
+
+function createVideoPlane(item) {
+
+    const video = document.getElementById("video" + item.id);
+
+    const plane = document.createElement("a-video");
+
+    plane.setAttribute("src", "#video" + item.id);
+
+    plane.setAttribute("width", item.width);
+
+    plane.setAttribute("height", item.height);
+
+    plane.setAttribute("position", item.position);
+
+    plane.setAttribute("rotation", item.rotation);
+
+    plane.setAttribute("opacity", item.opacity);
+
+    plane.setAttribute("transparent", item.transparent);
+
+    return plane;
 
 }
-function createImage(item){
+
+function createImage(item) {
 
     const image = document.createElement("a-image");
 
@@ -127,15 +152,11 @@ function bindEvents(entity, video, item) {
         video.pause();
 
         if (item.restart) {
-
             video.currentTime = 0;
-
         }
 
         if (currentVideo === video) {
-
             currentVideo = null;
-
         }
 
     });
