@@ -28,7 +28,7 @@ const TARGETS = [
 
         type: "video",
 
-        src: "assets/videos/lesson2.mp4",
+        src: "assets/videos/outro.mp4",
 
         width: 1,
         height: 0.56,
