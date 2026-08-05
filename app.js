@@ -127,28 +127,42 @@ function bindEvents(entity, video, item) {
 
         if (currentVideo && currentVideo !== video) {
 
-            currentVideo.pause();
-
-            currentVideo.currentTime = 0;
+            stop(currentVideo.id.replace("video", ""));
 
         }
 
         currentVideo = video;
 
-        video.play();
+        play(item.id);
+
+        if (item.onFound) {
+
+            item.onFound();
+
+        }
 
     });
 
     entity.addEventListener("targetLost", function () {
 
-        video.pause();
+        pause(item.id);
 
         if (item.restart) {
-            video.currentTime = 0;
+
+            stop(item.id);
+
         }
 
         if (currentVideo === video) {
+
             currentVideo = null;
+
+        }
+
+        if (item.onLost) {
+
+            item.onLost();
+
         }
 
     });
@@ -172,11 +186,19 @@ function show(id){
     if (!object) return;
     object.setAttribute("visible",true);
 }
-function setPosition(id,x,y,z){
+function setPosition(id, x, y, z) {
+
     const object = getObject(id);
+
     if (!object) return;
-    object.setAttribute("position",x+""+y+""+z);
+
+    object.setAttribute(
+        "position",
+        x + " " + y + " " + z
+    );
+
 }
+
 function getTarget(id){
     return registry[id];
 }

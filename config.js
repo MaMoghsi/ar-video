@@ -20,7 +20,15 @@ const TARGETS = [
 
         restart: false,
 
-        fitTarget: true
+        fitTarget: true,
+
+        onFound: function (){
+            console.log("target 0 Found");
+        },
+
+        onLost: function (){
+            console.log("target 0 Found");
+        }
     },
 
     {
