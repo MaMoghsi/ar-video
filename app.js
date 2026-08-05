@@ -189,3 +189,101 @@ function getVideo(id){
     }
     return target.video;
 }
+function play(id){
+
+    const video = getVideo(id);
+
+    if(!video){
+
+        return;
+
+    }
+
+    video.play();
+
+}
+function pause(id){
+
+    const video = getVideo(id);
+
+    if(!video){
+
+        return;
+
+    }
+
+    video.pause();
+
+}
+function stop(id){
+
+    const video = getVideo(id);
+
+    if(!video){
+
+        return;
+
+    }
+
+    video.pause();
+
+    video.currentTime = 0;
+
+}
+function unmute(id){
+
+    const video = getVideo(id);
+
+    if(!video){
+
+        return;
+
+    }
+
+    video.muted = false;
+
+}
+function mute(id){
+
+    const video = getVideo(id);
+
+    if(!video){
+
+        return;
+
+    }
+
+    video.muted = true;
+
+}
+function toggle(id){
+
+    const object = getObject(id);
+
+    if(!object){
+
+        return;
+
+    }
+
+    const visible = object.getAttribute("visible");
+
+    object.setAttribute(
+        "visible",
+        !visible
+    );
+
+}
+function isTracking(id){
+
+    const target = getTarget(id);
+
+    if(!target){
+
+        return false;
+
+    }
+
+    return target.entity.object3D.visible;
+
+}
