@@ -26,7 +26,21 @@ function createTarget(item) {
         "targetIndex: " + item.id
     );
 
-    const plane = document.createElement("a-video");
+    let plane;
+
+    if(item.type==="video"){
+
+        plane=document.createElement("a-video");
+
+        plane.setAttribute("src","#"+video.id);
+
+    }
+
+    else if(item.type==="image"){
+
+        plane=createImage(item);
+
+    }
 
     plane.setAttribute("src", "#" + video.id);
 
@@ -53,7 +67,7 @@ function createVideo(item) {
 
     video.id = "video" + item.id;
 
-    video.src = item.video;
+    video.src = item.src;
 
     video.loop = true;
 
@@ -66,6 +80,27 @@ function createVideo(item) {
     assets.appendChild(video);
 
     return video;
+
+}
+function createImage(item){
+
+    const image = document.createElement("a-image");
+
+    image.setAttribute("src", item.src);
+
+    image.setAttribute("width", item.width);
+
+    image.setAttribute("height", item.height);
+
+    image.setAttribute("position", item.position);
+
+    image.setAttribute("rotation", item.rotation);
+
+    image.setAttribute("opacity", item.opacity);
+
+    image.setAttribute("transparent", item.transparent);
+
+    return image;
 
 }
 

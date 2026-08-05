@@ -1,22 +1,28 @@
 const TARGETS = [
+
     {
-        id: 0,
 
-        video: "assets/videos/intro.mp4",
+        id:0,
 
-        width: 1,
-        height: 0.56,
+        type:"video",
 
-        position: "0 0 0",
+        src:"assets/videos/intro.mp4",
 
-        rotation: "0 0 0",
+        width:1,
+        height:0.56,
 
-        opacity: 1,
+        position:"0 0 0",
 
-        transparent: true,
+        rotation:"0 0 0",
 
-        restart: false,
+        opacity:1,
 
-        fitTarget: true
+        transparent:true,
+
+        restart:false,
+
+        fitTarget:true
+
     }
+
 ];
