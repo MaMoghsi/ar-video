@@ -1,4 +1,4 @@
-const objects = {};
+const registry = {};
 const scene = document.querySelector("a-scene");
 const assets = document.querySelector("#assets");
 
@@ -28,7 +28,12 @@ function createTarget(item) {
     );
 
     const object = createObject(item);
-    objects[item.id] = object;
+    registry[item.id] = {
+        item: item,
+        entity: entity,
+        object: object,
+        video: item.type === "video" ? document.getElementById("video"+item.id) : null
+    }
 
     if (!object) {
         return;
@@ -150,7 +155,12 @@ function bindEvents(entity, video, item) {
 
 }
 function getObject(id){
-    return objects[id];
+    const target = getTarget(id);
+
+    if(!target){
+        return null;
+    }
+    return target.object;
 }
 function hide(id){
     const object = getObject(id);
@@ -166,4 +176,16 @@ function setPosition(id,x,y,z){
     const object = getObject(id);
     if (!object) return;
     object.setAttribute("position",x+""+y+""+z);
+}
+function getTarget(id){
+    return registry[id];
+}
+
+function getVideo(id){
+    const target = getTarget(id);
+
+    if(!target){
+        return null;
+    }
+    return target.video;
 }
