@@ -1,6 +1,6 @@
 const scene = document.querySelector("a-scene");
 const assets = document.querySelector("#assets");
-
+let currentVideo = null;
 TARGETS.forEach((item) => {
 
     // ساخت ویدیو
@@ -37,6 +37,11 @@ TARGETS.forEach((item) => {
     scene.appendChild(entity);
 
     entity.addEventListener("targetFound", () => {
+        if (currentVideo && currentVideo !== video){
+            currentVideo.pause();
+            currentVideo.currentTime = 0;
+        }
+        currentVideo = video;
         video.play();
     });
 
@@ -46,6 +51,10 @@ TARGETS.forEach((item) => {
 
         if (item.restart) {
             video.currentTime = 0;
+        }
+
+        if (currentVideo === video){
+            currentVideo = null;
         }
 
     });
