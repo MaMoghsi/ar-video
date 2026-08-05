@@ -63,7 +63,14 @@ function createObject(item) {
             return null;
 
     }
-
+}
+function applyProperties(object,item){
+    object.setAttribute("width",item.width);
+    object.setAttribute("height",item.height);
+    object.setAttribute("position",item.position);
+    object.setAttribute("rotation",item.rotation);
+    object.setAttribute("opacity",item.opacity);
+    object.setAttribute("transparent",item.transparent);
 }
 
 function createVideoAsset(item) {
@@ -92,18 +99,7 @@ function createVideoPlane(item) {
     const plane = document.createElement("a-video");
 
     plane.setAttribute("src", "#video" + item.id);
-
-    plane.setAttribute("width", item.width);
-
-    plane.setAttribute("height", item.height);
-
-    plane.setAttribute("position", item.position);
-
-    plane.setAttribute("rotation", item.rotation);
-
-    plane.setAttribute("opacity", item.opacity);
-
-    plane.setAttribute("transparent", item.transparent);
+    applyProperties(plane,item)
 
     return plane;
 
@@ -114,18 +110,7 @@ function createImage(item) {
     const image = document.createElement("a-image");
 
     image.setAttribute("src", item.src);
-
-    image.setAttribute("width", item.width);
-
-    image.setAttribute("height", item.height);
-
-    image.setAttribute("position", item.position);
-
-    image.setAttribute("rotation", item.rotation);
-
-    image.setAttribute("opacity", item.opacity);
-
-    image.setAttribute("transparent", item.transparent);
+    applyProperties(image,item)
 
     return image;
 
