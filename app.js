@@ -1,3 +1,4 @@
+const objects = {};
 const scene = document.querySelector("a-scene");
 const assets = document.querySelector("#assets");
 
@@ -27,6 +28,7 @@ function createTarget(item) {
     );
 
     const object = createObject(item);
+    objects[item.id] = object;
 
     if (!object) {
         return;
@@ -161,4 +163,22 @@ function bindEvents(entity, video, item) {
 
     });
 
+}
+function getObject(id){
+    return objects[id];
+}
+function hide(id){
+    const object = getObject(id);
+    if (!object) return;
+    object.setAttribute("visible",false);
+}
+function show(id){
+    const object = getObject(id);
+    if (!object) return;
+    object.setAttribute("visible",true);
+}
+function setPosition(id,x,y,z){
+    const object = getObject(id);
+    if (!object) return;
+    object.setAttribute("position",x+""+y+""+z);
 }
