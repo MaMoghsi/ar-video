@@ -1,4 +1,8 @@
 const registry = {};
+const factories = {
+    video: createVideoPlane,
+    image: createImage
+}
 const scene = document.querySelector("a-scene");
 const assets = document.querySelector("#assets");
 
@@ -55,19 +59,18 @@ function createTarget(item) {
 
 function createObject(item) {
 
-    switch (item.type) {
+    const factory = factories[item.type];
 
-        case "video":
-            return createVideoPlane(item);
+    if (!factory) {
 
-        case "image":
-            return createImage(item);
+        console.error("Unknown Type : " + item.type);
 
-        default:
-            console.error("Unknown Type : " + item.type);
-            return null;
+        return null;
 
     }
+
+    return factory(item);
+
 }
 function applyProperties(object,item){
     object.setAttribute("width",item.width);
@@ -307,5 +310,7 @@ function isTracking(id){
     }
 
     return target.entity.object3D.visible;
-
+}
+function registerType(name,factory){
+    factories[name] = factory;
 }
