@@ -6,6 +6,7 @@ const factories = {
 }
 const scene = document.querySelector("a-scene");
 const assets = document.querySelector("#assets");
+const loader = document.querySelector("#loader")
 
 let currentVideo = null;
 
@@ -16,6 +17,7 @@ function init() {
     TARGETS.forEach(function (item) {
         createTarget(item);
     });
+    hideLoader();
 
 }
 
@@ -320,4 +322,11 @@ function isTracking(id){
 }
 function registerType(name,factory){
     factories[name] = factory;
+}
+
+function hideLoader(){
+    loader.style.opacity = "0";
+    setTimeout(function (){
+        loader.remove();
+    },300)
 }

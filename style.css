@@ -12,3 +12,24 @@ a-scene {
     width: 100vw !important;
     height: 100vh !important;
 }
+#loader{
+
+    position: fixed;
+
+    inset: 0;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background: black;
+
+    color: white;
+
+    font-size: 28px;
+
+    z-index: 99999;
+
+}
