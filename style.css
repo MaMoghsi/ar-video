@@ -12,3 +12,24 @@ a-scene {
     width: 100vw !important;
     height: 100vh !important;
 }
+#debug-panel{
+
+    position:fixed;
+
+    bottom:20px;
+
+    left:20px;
+
+    z-index:9999;
+
+}
+
+#debug-panel button{
+
+    padding:12px;
+
+    margin:5px;
+
+    font-size:18px;
+
+}

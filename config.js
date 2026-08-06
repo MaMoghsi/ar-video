@@ -1,3 +1,4 @@
+const Debug = true;
 const TARGETS = [
 
     {

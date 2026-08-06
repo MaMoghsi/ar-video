@@ -1,3 +1,4 @@
+let selectedTarget = null;
 const registry = {};
 const assetManager = {}
 const factories = {
@@ -170,6 +171,7 @@ function bindEvents(entity, video, item) {
         }
 
         currentVideo = video;
+        selectedTarget=item.id;
 
         play(item.id);
 
@@ -373,5 +375,30 @@ function createModel(item){
 
     applyProperties(model, item);
     return model;
+
+}
+function changeScale(step){
+
+    if(selectedTarget == null){
+
+        return;
+
+    }
+
+    const object = getObject(selectedTarget);
+
+    const scale = object.object3D.scale;
+
+    scale.x += step;
+
+    scale.y += step;
+
+    scale.z += step;
+
+    console.log(
+        scale.x,
+        scale.y,
+        scale.z
+    );
 
 }
