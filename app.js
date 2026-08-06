@@ -372,7 +372,6 @@ function createModel(item){
     );
 
     applyProperties(model, item);
-    console.log(model.getAttribute("scale"))
     return model;
 
 }

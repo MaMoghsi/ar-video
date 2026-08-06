@@ -39,7 +39,7 @@ const TARGETS = [
 
         rotation: "0 0 0",
 
-        scale: "0.001 0.001 0.001",
+        scale: "0.01 0.01 0.01",
 
         visible: true
 
