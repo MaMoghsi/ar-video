@@ -1,4 +1,5 @@
 const registry = {};
+const assetManager = {}
 const factories = {
     video: createVideoPlane,
     image: createImage
@@ -36,7 +37,6 @@ function createTarget(item) {
         item: item,
         entity: entity,
         object: object,
-        video: item.type === "video" ? document.getElementById("video"+item.id) : null
     }
 
     if (!object) {
@@ -97,7 +97,14 @@ function createVideoAsset(item) {
     video.setAttribute("webkit-playsinline", "");
 
     assets.appendChild(video);
+    registerAsset(video.id,video);
 
+}
+function registerAsset(id,asset){
+    assetManager[id] = asset;
+}
+function getAsset(id){
+    return assetManager[id];
 }
 
 function createVideoPlane(item) {
@@ -212,7 +219,7 @@ function getVideo(id){
     if(!target){
         return null;
     }
-    return target.video;
+    return getAsset("video"+id);
 }
 function play(id){
 
