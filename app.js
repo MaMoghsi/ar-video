@@ -2,7 +2,8 @@ const registry = {};
 const assetManager = {}
 const factories = {
     video: createVideoPlane,
-    image: createImage
+    image: createImage,
+    model: createModel
 }
 const scene = document.querySelector("a-scene");
 const assets = document.querySelector("#assets");
@@ -20,8 +21,13 @@ function init() {
 
 function createTarget(item) {
 
-    if (item.type === "video") {
-        createVideoAsset(item);
+    switch (item.type){
+        case "video":
+            createVideoAsset(item)
+            break;
+        case "model":
+            createModelAsset(item)
+            break;
     }
 
     const entity = document.createElement("a-entity");
@@ -319,4 +325,31 @@ function isTracking(id){
 }
 function registerType(name,factory){
     factories[name] = factory;
+}
+function createModelAsset(item){
+
+    const asset = document.createElement("a-asset-item");
+
+    asset.id = "model" + item.id;
+
+    asset.setAttribute("src", item.src);
+
+    assets.appendChild(asset);
+
+    registerAsset(asset.id, asset);
+
+}
+function createModel(item){
+
+    const model = document.createElement("a-gltf-model");
+
+    model.setAttribute(
+        "src",
+        "#model" + item.id
+    );
+
+    applyProperties(model, item);
+
+    return model;
+
 }
