@@ -77,13 +77,36 @@ function createObject(item) {
     return factory(item);
 
 }
-function applyProperties(object,item){
-    object.setAttribute("width",item.width);
-    object.setAttribute("height",item.height);
-    object.setAttribute("position",item.position);
-    object.setAttribute("rotation",item.rotation);
-    object.setAttribute("opacity",item.opacity);
-    object.setAttribute("transparent",item.transparent);
+function applyProperties(object, item){
+
+    if(item.width){
+        object.setAttribute("width", item.width);
+    }
+
+    if(item.height){
+        object.setAttribute("height", item.height);
+    }
+
+    if(item.position){
+        object.setAttribute("position", item.position);
+    }
+
+    if(item.rotation){
+        object.setAttribute("rotation", item.rotation);
+    }
+
+    if(item.scale){
+        object.setAttribute("scale", item.scale);
+    }
+
+    if(item.opacity !== undefined){
+        object.setAttribute("opacity", item.opacity);
+    }
+
+    if(item.transparent !== undefined){
+        object.setAttribute("transparent", item.transparent);
+    }
+
 }
 
 function createVideoAsset(item) {
@@ -349,7 +372,7 @@ function createModel(item){
     );
 
     applyProperties(model, item);
-
+    console.log(model.getAttribute("scale"))
     return model;
 
 }
