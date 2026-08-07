@@ -422,25 +422,36 @@ function increaseScale(){
         return;
     }
 
-    selectedObject.object3D.scale.x += 0.05;
-    selectedObject.object3D.scale.y += 0.05;
-    selectedObject.object3D.scale.z += 0.05;
+    const scale = selectedObject.getAttribute("scale");
 
-    updateDebugValues();
+    const value = scale.x + 0.05;
+
+    selectedObject.setAttribute(
+        "scale",
+        value + " " + value + " " + value
+    );
+
+    document.getElementById("scale-value").innerText =
+        value.toFixed(2);
 
 }
-
 function decreaseScale(){
 
     if(!selectedObject){
         return;
     }
 
-    selectedObject.object3D.scale.x -= 0.05;
-    selectedObject.object3D.scale.y -= 0.05;
-    selectedObject.object3D.scale.z -= 0.05;
+    const scale = selectedObject.getAttribute("scale");
 
-    updateDebugValues();
+    const value = Math.max(0.01, scale.x - 0.05);
+
+    selectedObject.setAttribute(
+        "scale",
+        value + " " + value + " " + value
+    );
+
+    document.getElementById("scale-value").innerText =
+        value.toFixed(2);
 
 }
 
