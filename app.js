@@ -23,12 +23,12 @@ function init() {
     if (!Debug){
         document.getElementById("debug-panel").remove()
     }
-    document.getElementById("scale-plus").onclick(function (){
+    document.getElementById("scale-plus").onclick = function (){
         alert("plus")
-    })
-    document.getElementById("scale-plus").onclick = increaseScale;
-    document.getElementById("scale-minus").onclick = decreaseScale;
-    document.getElementById("copy-config").onclick = copyConfig;
+    }
+    // document.getElementById("scale-plus").onclick = increaseScale;
+    // document.getElementById("scale-minus").onclick = decreaseScale;
+    // document.getElementById("copy-config").onclick = copyConfig;
 }
 
 function createTarget(item) {
