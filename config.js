@@ -42,7 +42,12 @@ const TARGETS = [
 
         scale: "0.01 0.01 0.01",
 
-        visible: true
+        visible: true,
+        animation:{
+            type: "rotate",
+            height: 0.08,
+            speed: 45
+        }
 
     },
 

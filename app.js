@@ -67,7 +67,7 @@ function createTarget(item) {
     }
 
     entity.appendChild(object);
-
+    applyAnimation(object.item);
     scene.appendChild(entity);
     let video = null;
     if (item.type === "video") {
@@ -559,4 +559,39 @@ function increasePosZ(){
 
 function decreasePosZ(){
     changePosition("z",-0.01);
+}
+function applyAnimation(object,item){
+
+    if(!item.animation){
+        return;
+    }
+
+    switch(item.animation.type){
+
+        case "rotate":
+
+            object.setAttribute(
+                "animation",
+                "property: rotation; to: 0 360 0; loop: true; dur: " +
+                (360 / item.animation.speed) * 1000 +
+                "; easing: linear"
+            );
+
+            break;
+
+        case "bounce":
+
+            object.setAttribute(
+                "animation",
+                "property: position; dir: alternate; loop: true; dur: " +
+                (1000 / item.animation.speed) +
+                "; to: 0 " +
+                item.animation.height +
+                " 0"
+            );
+
+            break;
+
+    }
+
 }
