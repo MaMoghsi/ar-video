@@ -169,52 +169,50 @@ function bindEvents(entity, video, item) {
 
     entity.addEventListener("targetFound", function () {
 
-        if (currentVideo && currentVideo !== video) {
+        selectedObject = getObject(item.id);
+        selectedTarget = item.id;
 
-            stop(currentVideo.id.replace("video", ""));
+        if (video) {
 
-        }
-        if (video){
+            if (currentVideo && currentVideo !== video) {
+                stop(currentVideo.id.replace("video", ""));
+            }
+
             currentVideo = video;
-            selectedObject = getObject(item.id);
 
-            selectedTarget=item.id;
             play(item.id);
+
         }
+
+        updateDebugValues();
 
         if (item.onFound) {
-
             item.onFound();
-
         }
 
     });
 
     entity.addEventListener("targetLost", function () {
-        if (video){
-        pause(item.id);
 
-        if (item.restart) {
+        if (video) {
 
-            stop(item.id);
+            pause(item.id);
+
+            if (item.restart) {
+                stop(item.id);
+            }
+
+            if (currentVideo === video) {
+                currentVideo = null;
+            }
 
         }
-        }
 
-        if (currentVideo === video) {
-
-            currentVideo = null;
-
-        }
+        selectedObject = null;
+        selectedTarget = null;
 
         if (item.onLost) {
-
             item.onLost();
-
-        }
-
-        if (selectedObject === getObject(item.id)){
-            selectedObject = null;
         }
 
     });
