@@ -1,3 +1,4 @@
+let selectedObject = null;
 let selectedTarget = null;
 const registry = {};
 const assetManager = {}
@@ -18,6 +19,13 @@ function init() {
     TARGETS.forEach(function (item) {
         createTarget(item);
     });
+
+    if (!Debug){
+        document.getElementById("debug-panel").remove()
+    }
+
+    document.getElementById("scale-plus").onclick = increaseScale;
+    document.getElementById("scale-minus").onclick = decreaseScale;
 }
 
 function createTarget(item) {
@@ -171,6 +179,7 @@ function bindEvents(entity, video, item) {
         }
 
         currentVideo = video;
+        selectedObject = getObject(item.id);
         selectedTarget=item.id;
 
         play(item.id);
@@ -203,6 +212,10 @@ function bindEvents(entity, video, item) {
 
             item.onLost();
 
+        }
+
+        if (selectedObject === getObject(item.id)){
+            selectedObject = null;
         }
 
     });
@@ -400,5 +413,43 @@ function changeScale(step){
         scale.y,
         scale.z
     );
+
+}
+function increaseScale(){
+
+    if(!selectedObject){
+        return;
+    }
+
+    selectedObject.object3D.scale.x += 0.05;
+    selectedObject.object3D.scale.y += 0.05;
+    selectedObject.object3D.scale.z += 0.05;
+
+    updateDebugValues();
+
+}
+
+function decreaseScale(){
+
+    if(!selectedObject){
+        return;
+    }
+
+    selectedObject.object3D.scale.x -= 0.05;
+    selectedObject.object3D.scale.y -= 0.05;
+    selectedObject.object3D.scale.z -= 0.05;
+
+    updateDebugValues();
+
+}
+
+function updateDebugValues(){
+
+    if(!selectedObject){
+        return;
+    }
+
+    document.getElementById("scale-value").innerText =
+        selectedObject.object3D.scale.x.toFixed(2);
 
 }

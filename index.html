@@ -31,9 +31,59 @@
 </a-scene>
 <div id="debug-panel">
 
-    <button onclick="changeScale(0.1)">Scale +</button>
+    <div class="debug-row">
 
-    <button onclick="changeScale(-0.1)">Scale -</button>
+        <span>Scale</span>
+
+        <button id="scale-minus">-</button>
+
+        <span id="scale-value">1</span>
+
+        <button id="scale-plus">+</button>
+
+    </div>
+
+    <div class="debug-row">
+
+        <span>Pos X</span>
+
+        <button id="px-minus">-</button>
+
+        <span id="px-value">0</span>
+
+        <button id="px-plus">+</button>
+
+    </div>
+
+    <div class="debug-row">
+
+        <span>Pos Y</span>
+
+        <button id="py-minus">-</button>
+
+        <span id="py-value">0</span>
+
+        <button id="py-plus">+</button>
+
+    </div>
+
+    <div class="debug-row">
+
+        <span>Pos Z</span>
+
+        <button id="pz-minus">-</button>
+
+        <span id="pz-value">0</span>
+
+        <button id="pz-plus">+</button>
+
+    </div>
+
+    <button id="copy-config">
+
+        Copy Config
+
+    </button>
 
 </div>
 
