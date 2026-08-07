@@ -26,6 +26,7 @@ function init() {
 
     document.getElementById("scale-plus").onclick = increaseScale;
     document.getElementById("scale-minus").onclick = decreaseScale;
+    document.getElementById("copy-config").onclick = copyConfig;
 }
 
 function createTarget(item) {
@@ -451,5 +452,39 @@ function updateDebugValues(){
 
     document.getElementById("scale-value").innerText =
         selectedObject.object3D.scale.x.toFixed(2);
+
+}
+function copyConfig(){
+
+    if(!selectedObject){
+        return;
+    }
+
+    const position = selectedObject.object3D.position;
+    const rotation = selectedObject.object3D.rotation;
+    const scale = selectedObject.object3D.scale;
+
+    const text =
+        'position: "' +
+        position.x.toFixed(3) + ' ' +
+        position.y.toFixed(3) + ' ' +
+        position.z.toFixed(3) +
+        '",\n' +
+
+        'rotation: "' +
+        Math.round(rotation.x * 180 / Math.PI) + ' ' +
+        Math.round(rotation.y * 180 / Math.PI) + ' ' +
+        Math.round(rotation.z * 180 / Math.PI) +
+        '",\n' +
+
+        'scale: "' +
+        scale.x.toFixed(3) + ' ' +
+        scale.y.toFixed(3) + ' ' +
+        scale.z.toFixed(3) +
+        '"';
+
+    navigator.clipboard.writeText(text);
+
+    alert("Config Copied");
 
 }
