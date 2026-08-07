@@ -27,6 +27,14 @@ function init() {
     document.getElementById("scale-plus").onclick = increaseScale;
     document.getElementById("scale-minus").onclick = decreaseScale;
     document.getElementById("copy-config").onclick = copyConfig;
+    document.getElementById("px-plus").onclick = increasePosX;
+    document.getElementById("px-minus").onclick = decreasePosX;
+
+    document.getElementById("py-plus").onclick = increasePosY;
+    document.getElementById("py-minus").onclick = decreasePosY;
+
+    document.getElementById("pz-plus").onclick = increasePosZ;
+    document.getElementById("pz-minus").onclick = decreasePosZ;
 }
 
 function createTarget(item) {
@@ -451,16 +459,30 @@ function decreaseScale(){
 
 }
 
+
 function updateDebugValues(){
 
     if(!selectedObject){
         return;
     }
 
+    const position = selectedObject.object3D.position;
+    const scale = selectedObject.object3D.scale;
+
     document.getElementById("scale-value").innerText =
-        selectedObject.object3D.scale.x.toFixed(2);
+        scale.x.toFixed(2);
+
+    document.getElementById("px-value").innerText =
+        position.x.toFixed(2);
+
+    document.getElementById("py-value").innerText =
+        position.y.toFixed(2);
+
+    document.getElementById("pz-value").innerText =
+        position.z.toFixed(2);
 
 }
+
 function copyConfig(){
 
     if(!selectedObject){
@@ -494,4 +516,47 @@ function copyConfig(){
 
     alert("Config Copied");
 
+}
+function changePosition(axis, step){
+
+    if(!selectedObject){
+        return;
+    }
+
+    const position = selectedObject.object3D.position;
+
+    position[axis] += step;
+
+    selectedObject.setAttribute(
+        "position",
+        position.x + " " +
+        position.y + " " +
+        position.z
+    );
+
+    updateDebugValues();
+
+}
+function increasePosX(){
+    changePosition("x",0.01);
+}
+
+function decreasePosX(){
+    changePosition("x",-0.01);
+}
+
+function increasePosY(){
+    changePosition("y",0.01);
+}
+
+function decreasePosY(){
+    changePosition("y",-0.01);
+}
+
+function increasePosZ(){
+    changePosition("z",0.01);
+}
+
+function decreasePosZ(){
+    changePosition("z",-0.01);
 }
