@@ -67,7 +67,7 @@ function createTarget(item) {
     }
 
     entity.appendChild(object);
-    applyAnimation(object.item);
+    // applyAnimation(object.item);
     scene.appendChild(entity);
     let video = null;
     if (item.type === "video") {
