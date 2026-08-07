@@ -61,17 +61,11 @@ function createTarget(item) {
     entity.appendChild(object);
 
     scene.appendChild(entity);
-
+    let video = null;
     if (item.type === "video") {
-
-        const video = document.getElementById("video" + item.id);
-
-        bindEvents(entity, video, item);
-
-    }else{
-        bindEvents(entity,null,item);
+        video = document.getElementById("video"+item.id)
     }
-
+    bindEvents(entity,video,item)
 }
 
 function createObject(item) {
@@ -197,14 +191,14 @@ function bindEvents(entity, video, item) {
     });
 
     entity.addEventListener("targetLost", function () {
-        if (video) {
-            pause(item.id);
+        if (video){
+        pause(item.id);
 
-            if (item.restart) {
+        if (item.restart) {
 
-                stop(item.id);
+            stop(item.id);
 
-            }
+        }
         }
 
         if (currentVideo === video) {
