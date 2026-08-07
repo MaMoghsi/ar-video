@@ -23,7 +23,9 @@ function init() {
     if (!Debug){
         document.getElementById("debug-panel").remove()
     }
-
+    document.getElementById("scale-plus").onclick(function (){
+        alert("plus")
+    })
     document.getElementById("scale-plus").onclick = increaseScale;
     document.getElementById("scale-minus").onclick = decreaseScale;
     document.getElementById("copy-config").onclick = copyConfig;
