@@ -23,12 +23,10 @@ function init() {
     if (!Debug){
         document.getElementById("debug-panel").remove()
     }
-    document.getElementById("scale-plus").onclick = function (){
-        alert("plus")
-    }
-    // document.getElementById("scale-plus").onclick = increaseScale;
-    // document.getElementById("scale-minus").onclick = decreaseScale;
-    // document.getElementById("copy-config").onclick = copyConfig;
+
+    document.getElementById("scale-plus").onclick = increaseScale;
+    document.getElementById("scale-minus").onclick = decreaseScale;
+    document.getElementById("copy-config").onclick = copyConfig;
 }
 
 function createTarget(item) {
@@ -70,6 +68,8 @@ function createTarget(item) {
 
         bindEvents(entity, video, item);
 
+    }else{
+        bindEvents(entity,null,item);
     }
 
 }
@@ -180,12 +180,13 @@ function bindEvents(entity, video, item) {
             stop(currentVideo.id.replace("video", ""));
 
         }
+        if (video){
+            currentVideo = video;
+            selectedObject = getObject(item.id);
 
-        currentVideo = video;
-        selectedObject = getObject(item.id);
-        selectedTarget=item.id;
-
-        play(item.id);
+            selectedTarget=item.id;
+            play(item.id);
+        }
 
         if (item.onFound) {
 
@@ -196,13 +197,14 @@ function bindEvents(entity, video, item) {
     });
 
     entity.addEventListener("targetLost", function () {
+        if (video) {
+            pause(item.id);
 
-        pause(item.id);
+            if (item.restart) {
 
-        if (item.restart) {
+                stop(item.id);
 
-            stop(item.id);
-
+            }
         }
 
         if (currentVideo === video) {
