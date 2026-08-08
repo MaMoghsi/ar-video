@@ -38,42 +38,23 @@ function init() {
 }
 
 function createTarget(item) {
-
-    switch (item.type){
-        case "video":
-            createVideoAsset(item)
-            break;
-        case "model":
-            createModelAsset(item)
-            break;
-    }
-
-    const entity = document.createElement("a-entity");
-
-    entity.setAttribute(
-        "mindar-image-target",
-        "targetIndex: " + item.id
-    );
-
     const object = createObject(item);
+
     registry[item.id] = {
         item: item,
         entity: entity,
         object: object,
-    }
+    };
 
     if (!object) {
         return;
     }
 
     entity.appendChild(object);
-    // applyAnimation(object.item);
+
+    applyAnimation(object, item);
+
     scene.appendChild(entity);
-    let video = null;
-    if (item.type === "video") {
-        video = document.getElementById("video"+item.id)
-    }
-    bindEvents(entity,video,item)
 }
 
 function createObject(item) {
@@ -560,20 +541,30 @@ function increasePosZ(){
 function decreasePosZ(){
     changePosition("z",-0.01);
 }
-function applyAnimation(object,item){
+function applyAnimation(object, item) {
 
-    if(!item.animation){
+    if (!object) {
         return;
     }
 
-    switch(item.animation.type){
+    if (!item) {
+        return;
+    }
+
+    if (!item.animation) {
+        return;
+    }
+
+    const animation = item.animation;
+
+    switch (animation.type) {
 
         case "rotate":
 
             object.setAttribute(
                 "animation",
                 "property: rotation; to: 0 360 0; loop: true; dur: " +
-                (360 / item.animation.speed) * 1000 +
+                (360 / animation.speed) * 1000 +
                 "; easing: linear"
             );
 
@@ -584,13 +575,20 @@ function applyAnimation(object,item){
             object.setAttribute(
                 "animation",
                 "property: position; dir: alternate; loop: true; dur: " +
-                (1000 / item.animation.speed) +
+                (1000 / animation.speed) +
                 "; to: 0 " +
-                item.animation.height +
+                animation.height +
                 " 0"
             );
 
             break;
+
+        default:
+
+            console.warn(
+                "Unknown animation type: " +
+                animation.type
+            );
 
     }
 
