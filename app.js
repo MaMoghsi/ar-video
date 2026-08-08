@@ -70,7 +70,7 @@ function createTarget(item) {
     }
 
     entity.appendChild(object);
-
+    applyAnimation(object,item)
     scene.appendChild(entity);
 
     let video = null;
@@ -568,6 +568,7 @@ function increasePosZ(){
 function decreasePosZ(){
     changePosition("z",-0.01);
 }
+
 function applyAnimation(object, item) {
 
     if (!object) {
@@ -582,40 +583,20 @@ function applyAnimation(object, item) {
         return;
     }
 
-    const animation = item.animation;
+    if (item.animation.type === "rotate") {
 
-    switch (animation.type) {
+        let speed = item.animation.speed;
 
-        case "rotate":
+        if (!speed) {
+            speed = 30;
+        }
 
-            object.setAttribute(
-                "animation",
-                "property: rotation; to: 0 360 0; loop: true; dur: " +
-                (360 / animation.speed) * 1000 +
-                "; easing: linear"
-            );
-
-            break;
-
-        case "bounce":
-
-            object.setAttribute(
-                "animation",
-                "property: position; dir: alternate; loop: true; dur: " +
-                (1000 / animation.speed) +
-                "; to: 0 " +
-                animation.height +
-                " 0"
-            );
-
-            break;
-
-        default:
-
-            console.warn(
-                "Unknown animation type: " +
-                animation.type
-            );
+        object.setAttribute(
+            "animation",
+            "property: rotation; to: 0 360 0; loop: true; dur: " +
+            (360 / speed * 1000) +
+            "; easing: linear"
+        );
 
     }
 

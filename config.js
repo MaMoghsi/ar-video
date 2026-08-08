@@ -17,7 +17,6 @@ const TARGETS = [
         visible: true,
         animation:{
             type: "rotate",
-            height: 0.08,
             speed: 45
         }
 
