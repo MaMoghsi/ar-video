@@ -38,12 +38,31 @@ function init() {
 }
 
 function createTarget(item) {
+
+    switch (item.type) {
+
+        case "video":
+            createVideoAsset(item);
+            break;
+
+        case "model":
+            createModelAsset(item);
+            break;
+    }
+
+    const entity = document.createElement("a-entity");
+
+    entity.setAttribute(
+        "mindar-image-target",
+        "targetIndex: " + item.id
+    );
+
     const object = createObject(item);
 
     registry[item.id] = {
         item: item,
         entity: entity,
-        object: object,
+        object: object
     };
 
     if (!object) {
@@ -52,9 +71,17 @@ function createTarget(item) {
 
     entity.appendChild(object);
 
-    applyAnimation(object, item);
-
     scene.appendChild(entity);
+
+    let video = null;
+
+    if (item.type === "video") {
+        video = document.getElementById(
+            "video" + item.id
+        );
+    }
+
+    bindEvents(entity, video, item);
 }
 
 function createObject(item) {
